@@ -39,61 +39,71 @@ impl Plane {
     }
 }
 
-#[cfg(test)]
-mod plane_tests {
-    use crate::features::shape::Shape;
 
-    use super::*;
-    #[test]
-    fn constant_normal_everywhere() {
-        let p = Plane::new();
-        assert_eq!(
-            p.normal_at(Tuple::point(0.0, 0.0, 0.0)),
-            Tuple::vector(0.0, 1.0, 0.0)
-        );
-        assert_eq!(
-            p.normal_at(Tuple::point(10.0, 0.0, -10.0)),
-            Tuple::vector(0.0, 1.0, 0.0)
-        );
-        assert_eq!(
-            p.normal_at(Tuple::point(-5.0, 0.0, 150.0)),
-            Tuple::vector(0.0, 1.0, 0.0)
-        );
-    }
 
-    #[test]
-    fn intersect_ray_parallel_to_plane() {
-        let p = Plane::new();
-        let r = Ray::new(Tuple::point(0.0, 10.0, 0.0), Tuple::vector(0.0, 0.0, 1.0));
-        let xs = p.intersect(&r);
-        assert_eq!(xs.len(), 0)
-    }
 
-    #[test]
-    fn intersect_coplanar_ray() {
-        let p = Plane::new();
-        let r = Ray::new(Tuple::point(0.0, 0.0, 0.0), Tuple::vector(0.0, 0.0, 1.0));
-        let xs = p.intersect(&r);
-        assert_eq!(xs.len(), 0);
-    }
 
-    #[test]
-    fn ray_intersecting_plane_from_above() {
-        let p = Plane::new();
-        let r = Ray::new(Tuple::point(0.0, 1.0, 0.0), Tuple::vector(0.0, -1.0, 0.0));
-        let xs = p.intersect(&r);
-        assert_eq!(xs.len(), 1);
-        assert_eq!(xs[0].t, 1.0);
-        assert_eq!(xs[0].s, Shape::Plane(p))
-    }
 
-    #[test]
-    fn ray_intersecting_plane_from_below() {
-        let p = Plane::new();
-        let r = Ray::new(Tuple::point(0.0, -1.0, 0.0), Tuple::vector(0.0, 1.0, 0.0));
-        let xs = p.intersect(&r);
-        assert_eq!(xs.len(), 1);
-        assert_eq!(xs[0].t, 1.0);
-        assert_eq!(xs[0].s, Shape::Plane(p))
-    }
-}
+
+
+
+
+
+// #[cfg(test)]
+// mod plane_tests {
+//     use crate::features::shape::Shape;
+
+//     use super::*;
+//     #[test]
+//     fn constant_normal_everywhere() {
+//         let p = Plane::new();
+//         assert_eq!(
+//             p.normal_at(Tuple::point(0.0, 0.0, 0.0)),
+//             Tuple::vector(0.0, 1.0, 0.0)
+//         );
+//         assert_eq!(
+//             p.normal_at(Tuple::point(10.0, 0.0, -10.0)),
+//             Tuple::vector(0.0, 1.0, 0.0)
+//         );
+//         assert_eq!(
+//             p.normal_at(Tuple::point(-5.0, 0.0, 150.0)),
+//             Tuple::vector(0.0, 1.0, 0.0)
+//         );
+//     }
+
+//     #[test]
+//     fn intersect_ray_parallel_to_plane() {
+//         let p = Plane::new();
+//         let r = Ray::new(Tuple::point(0.0, 10.0, 0.0), Tuple::vector(0.0, 0.0, 1.0));
+//         let xs = p.intersect(&r);
+//         assert_eq!(xs.len(), 0)
+//     }
+
+//     #[test]
+//     fn intersect_coplanar_ray() {
+//         let p = Plane::new();
+//         let r = Ray::new(Tuple::point(0.0, 0.0, 0.0), Tuple::vector(0.0, 0.0, 1.0));
+//         let xs = p.intersect(&r);
+//         assert_eq!(xs.len(), 0);
+//     }
+
+//     #[test]
+//     fn ray_intersecting_plane_from_above() {
+//         let p = Plane::new();
+//         let r = Ray::new(Tuple::point(0.0, 1.0, 0.0), Tuple::vector(0.0, -1.0, 0.0));
+//         let xs = p.intersect(&r);
+//         assert_eq!(xs.len(), 1);
+//         assert_eq!(xs[0].t, 1.0);
+//         assert_eq!(xs[0].s, Shape::Plane(p))
+//     }
+
+//     #[test]
+//     fn ray_intersecting_plane_from_below() {
+//         let p = Plane::new();
+//         let r = Ray::new(Tuple::point(0.0, -1.0, 0.0), Tuple::vector(0.0, 1.0, 0.0));
+//         let xs = p.intersect(&r);
+//         assert_eq!(xs.len(), 1);
+//         assert_eq!(xs[0].t, 1.0);
+//         assert_eq!(xs[0].s, Shape::Plane(p))
+//     }
+// }

@@ -4,6 +4,7 @@ use super::{
     materials::Material,
     matrice::Matrice,
     planes::Plane,
+    cylinders::Cylinder,
     rays::{transform, Ray},
     spheres::Sphere,
     tuple::Tuple,
@@ -14,7 +15,20 @@ pub enum Shape {
     Sphere(Sphere),
     Plane(Plane),
     Cube(Cube),
+    Cylinder(Cylinder),
 }
+
+impl PartialEq for Cylinder {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id
+        && self.transform == other.transform
+        && self.material == other.material
+        && (self.minimum - other.minimum).abs() < f32::EPSILON
+        && (self.maximum - other.maximum).abs() < f32::EPSILON
+        && self.closed == other.closed
+    }
+}
+
 
 impl Shape {
     pub fn intersect(&self, r: &Ray) -> Vec<Intersection> {
@@ -23,6 +37,7 @@ impl Shape {
             Shape::Sphere(s) => s.intersect(&ray),
             Shape::Plane(p) => p.intersect(&ray),
             Shape::Cube(c) => c.intersect(&ray),
+            Shape::Cylinder(c) => c.intersect(&ray),
         }
     }
     pub fn set_transform(&mut self, t: Matrice) {
@@ -30,6 +45,7 @@ impl Shape {
             Shape::Sphere(s) => s.set_transform(t),
             Shape::Plane(p) => p.set_transform(t),
             Shape::Cube(c) => c.transform = t,
+            Shape::Cylinder(c) => c.transform = t,
         }
     }
     pub fn transform(&self) -> Matrice {
@@ -37,6 +53,7 @@ impl Shape {
             Shape::Sphere(s) => s.transform.clone(),
             Shape::Plane(p) => p.transform(),
             Shape::Cube(c) => c.transform.clone(),
+            Shape::Cylinder(c) => c.transform.clone(),
         }
     }
     pub fn normal_at(&self, point: Tuple) -> Tuple {
@@ -44,6 +61,7 @@ impl Shape {
             Shape::Sphere(s) => s.normal_at(point),
             Shape::Plane(p) => p.normal_at(point),
             Shape::Cube(c) => c.normal_at(point),
+            Shape::Cylinder(c) => c.normal_at(point),
         }
     }
     pub fn material(&self) -> Material {
@@ -51,6 +69,7 @@ impl Shape {
             Shape::Sphere(s) => s.material.clone(),
             Shape::Plane(p) => p.material.clone(),
             Shape::Cube(c) => c.material.clone(),
+            Shape::Cylinder(c) => c.material.clone(),
         }
     }
     pub fn set_material(&mut self, m: Material) {
@@ -58,11 +77,18 @@ impl Shape {
             Shape::Sphere(s) => s.material = m,
             Shape::Plane(_) => {}
             Shape::Cube(_) => {}
+            Shape::Cylinder(_) => {}
         }
     }
     pub fn set_material_ambient(&mut self, ambient: f32) {
         if let Shape::Sphere(s) = self {
             s.material.ambient = ambient
+        }
+        if let Shape::Cube(c) = self {
+            c.material.ambient = ambient
+        }
+        if let Shape::Cylinder(c) = self {
+            c.material.ambient = ambient
         }
     }
 }

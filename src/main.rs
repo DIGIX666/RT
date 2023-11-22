@@ -1,7 +1,7 @@
-use practice::sphere::draw_sphere;
+use practice::draw::drawing;
 
 mod features;
 mod practice;
 fn main() {
-   draw_sphere();
+   drawing();
 }
