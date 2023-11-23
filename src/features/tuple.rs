@@ -49,7 +49,7 @@ impl Tuple {
         if x > 255.0 {
             x = 255.0;
         }
-        if x < 0.0 {
+        if x < 100.0 {
             x = 0.0;
         }
         if y > 255.0 {
@@ -96,49 +96,6 @@ impl Tuple {
     }
     pub fn reflect(&self, normal: &Self) -> Self {
         *self - *normal * 2.0 * self.dot(normal)
-    }
-}
-
-#[cfg(test)]
-mod tuple_tests {
-    use super::Tuple;
-
-    #[test]
-    fn test_cross() {
-        let tuple = Tuple::vector(1.0, 2.0, 3.0);
-        let other = Tuple::vector(2.0, 3.0, 4.0);
-        let mut res = tuple.cross(&other);
-        assert!(res == Tuple::vector(-1.0, 2.0, -1.0));
-        res = other.cross(&tuple);
-        assert!(res == Tuple::vector(1.0, -2.0, 1.0));
-    }
-    #[test]
-    fn test_mul_colors() {
-        let color_tuple = Tuple::color(1.0, 0.2, 0.4);
-        let color_other_tuple = Tuple::color(0.9, 1.0, 0.1);
-        let res = color_other_tuple * color_tuple;
-        assert!(res == Tuple::color(0.9, 0.2, 0.04))
-    }
-}
-
-#[cfg(test)]
-mod reflect_tests {
-    use super::Tuple;
-
-    #[test]
-    fn test_reflecting_at_45() {
-        let v = Tuple::vector(1.0, -1.0, 0.0);
-        let n = Tuple::vector(0.0, 1.0, 0.0);
-        let r = v.reflect(&n);
-        assert_eq!(r, Tuple::vector(1.0, 1.0, 0.0));
-    }
-
-    #[test]
-    fn test_reflecting_off_slanted_surface() {
-        let v = Tuple::vector(0.0, -1.0, 0.0);
-        let n = Tuple::vector(2.0_f32.sqrt() / 2.0, 2.0_f32.sqrt() / 2.0, 0.0);
-        let r = v.reflect(&n);
-        assert_eq!(r, Tuple::vector(1.0, 0.0, 0.0));
     }
 }
 

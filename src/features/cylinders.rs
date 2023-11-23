@@ -2,7 +2,7 @@ use uuid::Uuid;
 use crate::features::shape::Shape;
 
 use super::{
-    intersections::{Intersection},
+    intersections::Intersection,
     materials::Material,
     matrice::Matrice,
     rays::Ray,
@@ -26,7 +26,7 @@ impl Cylinder {
             id: Uuid::new_v4(),
             transform: Matrice::identity_matrix(4),
             minimum: f32::NEG_INFINITY,
-            maximum: f32::INFINITY,
+            maximum: 3.0,
             closed: false,
         }
     }

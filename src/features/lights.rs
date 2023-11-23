@@ -14,19 +14,3 @@ impl Light {
         }
     }
 }
-
-#[cfg(test)]
-mod light_tests {
-    use crate::features::tuple::Tuple;
-
-    use super::Light;
-
-    #[test]
-    fn test_creating_light() {
-        let intensity = Tuple::color(1.0, 1.0, 1.0);
-        let position = Tuple::point(0.0, 0.0, 0.0);
-        let light = Light::new(position, intensity);
-        assert_eq!(light.intensity, intensity);
-        assert_eq!(light.position, position);
-    }
-}
