@@ -86,9 +86,9 @@ pub fn drawing() {
             Shape::Plane(left_wall),
             Shape::Plane(right_wall),
             Shape::Plane(floor),
-            // Shape::Sphere(middle),
+            Shape::Sphere(middle),
             Shape::Cube(cube),
-            // Shape::Cylinder(cylindre),
+            Shape::Cylinder(cylindre),
         ],
     );
     /////////////////////////////////////////////
